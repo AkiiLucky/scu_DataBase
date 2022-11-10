@@ -4,8 +4,8 @@
 
 
 # Configuration directories and files
-SourceDirectory: /home/sion/work/2019141420246/scudb_initial/scudb_initial
-BuildDirectory: /home/sion/work/2019141420246/scudb_initial/scudb_initial/build
+SourceDirectory: /home/sion/work/scu_DataBase/project/project1/scudb_initial
+BuildDirectory: /home/sion/work/scu_DataBase/project/project1/scudb_initial/build
 
 # Where to place the cost data store
 CostDataFile: 
@@ -26,7 +26,7 @@ SubmitURL: http://
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/usr/bin/cmake" "/home/sion/work/2019141420246/scudb_initial/scudb_initial"
+ConfigureCommand: "/usr/bin/cmake" "/home/sion/work/scu_DataBase/project/project1/scudb_initial"
 MakeCommand: /usr/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
 DefaultCTestConfigurationType: Release
 
@@ -57,9 +57,9 @@ P4UpdateOptions:
 P4UpdateCustom: 
 
 # Generic update command
-UpdateCommand: /usr/bin/git
+UpdateCommand: 
 UpdateOptions: 
-UpdateType: git
+UpdateType: 
 
 # Compiler info
 Compiler: /usr/bin/c++

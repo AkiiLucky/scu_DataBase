@@ -51,3 +51,5 @@ include_directories(BEFORE src) # This is needed for gtest.
 # ---[ Subdirectories
 add_subdirectory(src)
 add_subdirectory(test)
+
+include_directories(SYSTEM "/foo/bar")

@@ -4,8 +4,8 @@
 
 
 # Configuration directories and files
-SourceDirectory: /home/sion/work/2019141420246/scudb_initial/scudb_initial
-BuildDirectory: /home/sion/work/2019141420246/scudb_initial/scudb_initial/cmake-build-debug
+SourceDirectory: /home/sion/work/scu_DataBase/project/project1/scudb_initial
+BuildDirectory: /home/sion/work/scu_DataBase/project/project1/scudb_initial/cmake-build-debug
 
 # Where to place the cost data store
 CostDataFile: 
@@ -27,8 +27,8 @@ SubmitInactivityTimeout:
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/snap/clion/209/bin/cmake/linux/bin/cmake" "/home/sion/work/2019141420246/scudb_initial/scudb_initial"
-MakeCommand: /snap/clion/206/bin/cmake/linux/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
+ConfigureCommand: "/snap/clion/209/bin/cmake/linux/bin/cmake" "/home/sion/work/scu_DataBase/project/project1/scudb_initial"
+MakeCommand: /snap/clion/209/bin/cmake/linux/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
 DefaultCTestConfigurationType: Release
 
 # version control
@@ -45,7 +45,7 @@ SVNOptions:
 SVNUpdateOptions: 
 
 # Git options
-GITCommand: /usr/bin/git
+GITCommand: 
 GITInitSubmodules: 
 GITUpdateOptions: 
 GITUpdateCustom: 
@@ -58,9 +58,9 @@ P4UpdateOptions:
 P4UpdateCustom: 
 
 # Generic update command
-UpdateCommand: /usr/bin/git
+UpdateCommand: 
 UpdateOptions: 
-UpdateType: git
+UpdateType: 
 
 # Compiler info
 Compiler: /usr/bin/c++
@@ -76,7 +76,7 @@ CudaSanitizerCommand:
 CudaSanitizerCommandOptions: 
 MemoryCheckType: 
 MemoryCheckSanitizerOptions: 
-MemoryCheckCommand: MEMORYCHECK_COMMAND-NOTFOUND
+MemoryCheckCommand: /usr/bin/valgrind
 MemoryCheckCommandOptions: 
 MemoryCheckSuppressionFile: 
 
