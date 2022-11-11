@@ -114,42 +114,58 @@ void ExtendibleHash<K, V>::Insert(const K &key, const V &value) {
     shared_ptr<Bucket> cur = buckets[idx];
     while (true) {
         lock_guard<mutex> lck(cur->latch);
-        if (cur->keyMap.find(key) != cur->keyMap.end() || cur->keyMap.size() < bucketSize) {
+        auto it1 = cur->keyMap.find(key);
+        if (it1 != cur->keyMap.end()) { //bucket has existed key
+            it1->second = value;
+            break;
+        } else if (cur->keyMap.size() < bucketSize) { // bucket is not full
             cur->keyMap[key] = value;
             break;
-        }
-        int mask = (1 << (cur->localDepth));
-        cur->localDepth++;
-
-        {
-            lock_guard<mutex> lck2(latch);
-            if (cur->localDepth > globalDepth) {
-
-                size_t length = buckets.size();
-                for (size_t i = 0; i < length; i++) {
-                    buckets.push_back(buckets[i]);
+        } else {
+            int mask = (1 << (cur->localDepth));
+            cur->localDepth++;
+            {
+                lock_guard<mutex> lck2(latch);
+                if (cur->localDepth > globalDepth) {
+                    size_t length = buckets.size();
+                    //increase buckets
+                    for (size_t i = 0; i < length; i++) {
+                        //keep the source ptr not change
+                        buckets.push_back(buckets[i]);
+                    }
+                    globalDepth++;
                 }
-                globalDepth++;
-
+                //create a new empty bucket
+                auto newBuc = make_shared<Bucket>(cur->localDepth);
+                bucketNum++;
+                //split the full bucket
+                for (auto it = cur->keyMap.begin(); it != cur->keyMap.end(); it++) {
+                    //if the key's last locationDepth bit is 1, then put the <key, value> into new bucket
+                    auto tmpKey = it->first;
+                    auto tmpValue = it->second;
+                    if (HashKey(tmpKey) & mask) {
+                        newBuc->keyMap[tmpKey] = tmpValue;
+                    }
+                }
+                for (auto it = cur->keyMap.begin(); it != cur->keyMap.end(); it++) {
+                    //if the key's last locationDepth bit is 1, then erase the <key, value> from original bucket
+                    auto tmpKey = it->first;
+                    if (HashKey(tmpKey) & mask) {
+                        it = cur->keyMap.erase(it);
+                    }
+                }
+                //change the new ptr into new bucket
+                for (size_t bucket_id = 0; bucket_id < buckets.size(); bucket_id++) {
+                    if (buckets[bucket_id] == cur && (bucket_id & mask)) {
+                        buckets[bucket_id] = newBuc;
+                    }
+                }
             }
-            bucketNum++;
-            auto newBuc = make_shared<Bucket>(cur->localDepth);
-
-            typename map<K, V>::iterator it;
-            for (it = cur->keyMap.begin(); it != cur->keyMap.end(); ) {
-                if (HashKey(it->first) & mask) {
-                    newBuc->keyMap[it->first] = it->second;
-                    it = cur->keyMap.erase(it);
-                } else it++;
-            }
-            for (size_t i = 0; i < buckets.size(); i++) {
-                if (buckets[i] == cur && (i & mask))
-                    buckets[i] = newBuc;
-            }
+            idx = getIdx(key);
+            cur = buckets[idx];
         }
-        idx = getIdx(key);
-        cur = buckets[idx];
     }
+
 }
 
 template class ExtendibleHash<page_id_t, Page *>;
