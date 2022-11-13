@@ -10,7 +10,7 @@
 - 作业4地址：
 
 # 实验
-- 实验1地址：
+- 实验1地址：https://github.com/AkiiLucky/scu_DataBase/tree/main/project/project1
 - 实验2地址：
 - 实验3地址：
 - 实验4地址：
