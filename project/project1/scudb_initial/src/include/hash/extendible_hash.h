@@ -52,7 +52,7 @@ private:
     // add your own member variables here
     int globalDepth;
     int bucketNum;
-    size_t bucketSize;
+    size_t bucketMaxSize;
     vector<shared_ptr<Bucket>> buckets;
     mutable mutex latch;
 };

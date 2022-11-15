@@ -15,7 +15,7 @@ template <typename K, typename V>
 ExtendibleHash<K, V>::ExtendibleHash(size_t size) {
     this->globalDepth = 0;
     this->bucketNum = 1;
-    this->bucketSize = size;
+    this->bucketMaxSize = size;
     shared_ptr<Bucket> sp1(new Bucket(0));
     this->buckets.push_back(sp1);
 }
@@ -118,7 +118,7 @@ void ExtendibleHash<K, V>::Insert(const K &key, const V &value) {
         if (it1 != cur->keyMap.end()) { //bucket has existed key
             it1->second = value;
             break;
-        } else if (cur->keyMap.size() < bucketSize) { // bucket is not full
+        } else if (cur->keyMap.size() < bucketMaxSize) { // bucket is not full
             cur->keyMap[key] = value;
             break;
         } else {
