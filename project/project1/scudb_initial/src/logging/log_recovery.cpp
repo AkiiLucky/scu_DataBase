@@ -27,7 +27,7 @@ void LogRecovery::Redo() {}
 
 /*
  *undo phase on TABLE PAGE level(table/table_page.h)
- *iterate through active txn map and undo each operation
+ *iterate through active txn hashmap and undo each operation
  */
 void LogRecovery::Undo() {}
 

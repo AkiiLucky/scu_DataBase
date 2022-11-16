@@ -3,7 +3,7 @@
  * hashing
  *
  * Functionality: The buffer pool manager must maintain a page table to be able
- * to quickly map a PageId to its corresponding memory location; or alternately
+ * to quickly hashmap a PageId to its corresponding memory location; or alternately
  * report that the PageId does not match any currently-buffered page.
  */
 

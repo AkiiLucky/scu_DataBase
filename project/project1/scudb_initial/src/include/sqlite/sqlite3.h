@@ -965,7 +965,7 @@ int (*xUnfetch)(sqlite3_file*, sqlite3_int64 iOfst, void *p);
 ** The [SQLITE_FCNTL_MMAP_SIZE] file control is used to query or set the
 ** maximum number of bytes that will be used for memory-mapped I/O.
 ** The argument is a pointer to a value of type sqlite3_int64 that
-** is an advisory maximum number of bytes in the file to memory map.  The
+** is an advisory maximum number of bytes in the file to memory hashmap.  The
 ** pointer is overwritten with the old value.  The limit is not changed if
 ** the value originally pointed to is negative, and so the current limit
 ** can be queried by passing in a pointer to a negative number.  This
@@ -10505,7 +10505,7 @@ void (*xPhraseNextColumn)(Fts5Context*, Fts5PhraseIter*, int *piCol);
 **     ... MATCH '1s*'</codeblock>
 **
 **   will not match documents that contain the token "1st" (as the tokenizer
-**   will probably not map "1s" to any prefix of "first").
+**   will probably not hashmap "1s" to any prefix of "first").
 **
 **   For full prefix support, method (3) may be preferred. In this case,
 **   because the index contains entries for both "first" and "1st", prefix

@@ -9,12 +9,22 @@
 
 #pragma once
 
+#include <unordered_map>
 #include "buffer/replacer.h"
 #include "hash/extendible_hash.h"
 
 namespace scudb {
 
 template <typename T> class LRUReplacer : public Replacer<T> {
+    //the Node of doubleLinkedList
+    struct Node {
+        Node() {};
+        Node(T val) : val(val) {};
+        T val;
+        shared_ptr<Node> prev; //point to prevent node
+        shared_ptr<Node> next; //point to next node
+    };
+
 public:
   // do not change public interface
   LRUReplacer();
@@ -30,7 +40,13 @@ public:
   size_t Size();
 
 private:
-  // add your member variables here
+    // add your member variables here
+    shared_ptr<Node> head; //the head Node of doubleLinkedList
+    shared_ptr<Node> tail; //the tail Node of doubleLinkedList
+    //use hashmap to store all copied ptr of doubleLinkedList, because hashmap make search more fast
+    unordered_map<T,shared_ptr<Node>> hashmap;
+    mutable mutex latch;
+
 };
 
 } // namespace scudb

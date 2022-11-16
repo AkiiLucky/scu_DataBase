@@ -2928,7 +2928,7 @@ inline void Abort() { abort(); }
 
 // MSVC "deprecates" snprintf and issues warnings wherever it is used.  In
 // order to avoid these warnings, we need to use _snprintf or _snprintf_s on
-// MSVC-based platforms.  We map the GTEST_SNPRINTF_ macro to the appropriate
+// MSVC-based platforms.  We hashmap the GTEST_SNPRINTF_ macro to the appropriate
 // function in order to achieve that.  We use macro definition here because
 // snprintf is a variadic function.
 #if _MSC_VER >= 1400 && !GTEST_OS_WINDOWS_MOBILE
@@ -10549,7 +10549,7 @@ class ParameterizedTestCaseInfo : public ParameterizedTestCaseInfoBase {
 
 // INTERNAL IMPLEMENTATION - DO NOT USE IN USER CODE.
 //
-// ParameterizedTestCaseRegistry contains a map of ParameterizedTestCaseInfoBase
+// ParameterizedTestCaseRegistry contains a hashmap of ParameterizedTestCaseInfoBase
 // classes accessed by test case names. TEST_P and INSTANTIATE_TEST_CASE_P
 // macros use it to locate their corresponding ParameterizedTestCaseInfo
 // descriptors.

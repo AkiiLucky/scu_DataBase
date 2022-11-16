@@ -4680,7 +4680,7 @@ std::string XmlUnitTestResultPrinter::RemoveInvalidXmlCharacters(
 // The following routines generate an XML representation of a UnitTest
 // object.
 //
-// This is how Google Test concepts map to the DTD:
+// This is how Google Test concepts hashmap to the DTD:
 //
 // <testsuites name="AllTests">        <-- corresponds to a UnitTest object
 //   <testsuite name="testcase-name">  <-- corresponds to a TestCase object
