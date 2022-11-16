@@ -90,16 +90,16 @@ Page *BufferPoolManager::FetchPage(page_id_t page_id) {
 bool BufferPoolManager::UnpinPage(page_id_t page_id, bool is_dirty) {
     lock_guard<mutex> lck(latch_);
     Page *target = nullptr;
-    page_table_->Find(page_id, target);
-    if (target == nullptr) {
+    if (!page_table_->Find(page_id, target)) {
         return false;
     }
     target->is_dirty_ = is_dirty;
-    if (target->GetPinCount() <= 0) {
-        return false;
-    }
+    assert(target->GetPinCount() > 0);
+//    if (target->GetPinCount() <= 0) {
+//        return false;
+//    }
     target->pin_count_ -= 1;
-    if (target->pin_count_ == 0) {
+    if (target->pin_count_ == 0) { //if the page not pinned by any process, insert it into replacer
         replacer_->Insert(target);
     }
     return true;
@@ -111,7 +111,21 @@ bool BufferPoolManager::UnpinPage(page_id_t page_id, bool is_dirty) {
  * if page is not found in page table, return false
  * NOTE: make sure page_id != INVALID_PAGE_ID
  */
-bool BufferPoolManager::FlushPage(page_id_t page_id) { return false; }
+bool BufferPoolManager::FlushPage(page_id_t page_id) {
+    lock_guard<mutex> lck(latch_);
+    Page *target = nullptr;
+    if (!page_table_->Find(page_id, target)) { //if page id is not in page table, return false
+        return false;
+    }
+    assert(target->page_id_ != INVALID_PAGE_ID); //if target is an invalid page then assert
+
+    if (target->is_dirty_) { //if the page is dirty, write back the page to disk
+        disk_manager_->WritePage(page_id, target->GetData());
+        target->is_dirty_ = false;
+    }
+
+    return true;
+}
 
 /**
  * User should call this method for deleting a page. This routine will call
@@ -121,7 +135,22 @@ bool BufferPoolManager::FlushPage(page_id_t page_id) { return false; }
  * call disk manager's DeallocatePage() method to delete from disk file. If
  * the page is found within page table, but pin_count != 0, return false
  */
-bool BufferPoolManager::DeletePage(page_id_t page_id) { return false; }
+bool BufferPoolManager::DeletePage(page_id_t page_id) {
+    lock_guard<mutex> lck(latch_);
+    Page *target = nullptr;
+    page_table_->Find(page_id, target);
+    if (target != nullptr)
+    {
+        if (target->GetPinCount() > 0) return false;
+        replacer_->Erase(target);          //remove it from replacer
+        page_table_->Remove(page_id);       //remove it from page_table
+        target->is_dirty_= false;
+        target->ResetMemory();                  //reset page metadata
+        free_list_->push_back(target);        //add back to free list
+    }
+    disk_manager_->DeallocatePage(page_id);     //remove it from disk
+    return true;
+}
 
 /**
  * User should call this method if needs to create a new page. This routine
@@ -131,7 +160,32 @@ bool BufferPoolManager::DeletePage(page_id_t page_id) { return false; }
  * update new page's metadata, zero out memory and add corresponding entry
  * into page table. return nullptr if all the pages in pool are pinned
  */
-Page *BufferPoolManager::NewPage(page_id_t &page_id) { return nullptr; }
+Page *BufferPoolManager::NewPage(page_id_t &page_id) {
+    lock_guard<mutex> lck(latch_);
+
+    //1 get a free page from free list or lru_replacer
+    Page *target = nullptr;
+    target = GetVictimPage();
+    if (target == nullptr) return target; //if not find available page (all page pinned), then return nullptr
+
+    //2 if old page is dirty, write back to disk
+    if (target->is_dirty_) {
+        disk_manager_->WritePage(target->GetPageId(), target->data_);
+    }
+
+    //3 update page in page table
+    page_table_->Remove(target->GetPageId());
+    page_id = disk_manager_->AllocatePage(); //allocate a new page id for new page
+    page_table_->Insert(page_id, target);
+
+    //4 reset params and return page pointer
+    target->page_id_ = page_id;
+    target->ResetMemory(); //reset the metadata of page
+    target->is_dirty_ = false;
+    target->pin_count_ = 1;
+
+    return target;
+}
 
 
 
