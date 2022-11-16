@@ -10,7 +10,12 @@
 - 作业4地址：
 
 # 实验
-- 实验1地址：https://github.com/AkiiLucky/scu_DataBase/tree/main/project/project1
+- 实验1
+  - 地址：https://github.com/AkiiLucky/scu_DataBase/tree/main/project/project1
+  - 运行结果：
+    - ![Alt text](image/hash_test.png)
+    - ![Alt text](image/lru_test.png)
+    - ![Alt text](image/buffer_test.png)
 - 实验2地址：
 - 实验3地址：
 - 实验4地址：
