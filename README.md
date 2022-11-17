@@ -11,6 +11,9 @@
 
 # 实验
 - 实验1地址：https://github.com/AkiiLucky/scu_DataBase/tree/main/project/project1
+  - extendible_hash_test![Alt text](./image/hash_test.png)
+  - lru_replacer_test![Alt text](./image/lru_test.png)
+  - buffer_pool_manager_test![Alt text](./image/buffer_test.png)
 - 实验2地址：
 - 实验3地址：
 - 实验4地址：
