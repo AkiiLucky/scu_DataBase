@@ -46,8 +46,9 @@ template <typename K, typename V>
 int ExtendibleHash<K, V>::GetLocalDepth(int bucket_id) const {
     //lock_guard<mutex> lck2(latch);
     if (size_t(bucket_id) < buckets.size()) {
+//        cout<<buckets.size()<<endl;
         lock_guard<mutex> lck(buckets[bucket_id]->latch);
-        //if (buckets[bucket_id]->keyMap.size() == 0) return -1;
+        if (buckets[bucket_id]->keyMap.size() == 0) return -1;
         return buckets[bucket_id]->localDepth;
     }
     return -1;
@@ -138,6 +139,7 @@ void ExtendibleHash<K, V>::Insert(const K &key, const V &value) {
                 //create a new empty bucket
                 auto newBuc = make_shared<Bucket>(cur->localDepth);
                 bucketNum++;
+                vector<K> keyListToErase(0);
                 //split the full bucket
                 for (auto it = cur->keyMap.begin(); it != cur->keyMap.end(); it++) {
                     //if the key's last locationDepth bit is 1, then put the <key, value> into new bucket
@@ -145,14 +147,12 @@ void ExtendibleHash<K, V>::Insert(const K &key, const V &value) {
                     auto tmpValue = it->second;
                     if (HashKey(tmpKey) & mask) {
                         newBuc->keyMap[tmpKey] = tmpValue;
+                        keyListToErase.push_back(tmpKey);
                     }
                 }
-                for (auto it = cur->keyMap.begin(); it != cur->keyMap.end(); it++) {
-                    //if the key's last locationDepth bit is 1, then erase the <key, value> from original bucket
-                    auto tmpKey = it->first;
-                    if (HashKey(tmpKey) & mask) {
-                        it = cur->keyMap.erase(it);
-                    }
+                //if the key's last locationDepth bit is 1, then erase the <key, value> from original bucket
+                for (size_t i=0; i<keyListToErase.size(); i++) {
+                    cur->keyMap.erase(keyListToErase[i]);
                 }
                 //change the new ptr into new bucket
                 for (size_t bucket_id = 0; bucket_id < buckets.size(); bucket_id++) {

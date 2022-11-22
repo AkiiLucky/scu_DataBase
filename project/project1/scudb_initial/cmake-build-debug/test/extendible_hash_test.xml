@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="3" failures="0" disabled="0" errors="0" timestamp="2022-11-16T06:48:55" time="0.124" name="AllTests">
-  <testsuite name="ExtendibleHashTest" tests="3" failures="0" disabled="0" errors="0" time="0.124">
-    <testcase name="SampleTest" status="run" time="0.001" classname="ExtendibleHashTest" />
-    <testcase name="ConcurrentInsertTest" status="run" time="0.11" classname="ExtendibleHashTest" />
-    <testcase name="ConcurrentRemoveTest" status="run" time="0.013" classname="ExtendibleHashTest" />
+<testsuites tests="8" failures="0" disabled="0" errors="0" timestamp="2022-11-22T07:30:01" time="2.093" name="AllTests">
+  <testsuite name="ExtendibleHashTest" tests="8" failures="0" disabled="0" errors="0" time="2.09">
+    <testcase name="SampleTest" status="run" time="0" classname="ExtendibleHashTest" />
+    <testcase name="SampleTest2" status="run" time="0" classname="ExtendibleHashTest" />
+    <testcase name="BasicDepthTest" status="run" time="0" classname="ExtendibleHashTest" />
+    <testcase name="BasicRandomTest" status="run" time="0.01" classname="ExtendibleHashTest" />
+    <testcase name="LargeRandomInsertTest" status="run" time="1.49" classname="ExtendibleHashTest" />
+    <testcase name="RandomInsertAndDeleteTest" status="run" time="0.006" classname="ExtendibleHashTest" />
+    <testcase name="ConcurrentInsertTest" status="run" time="0.254" classname="ExtendibleHashTest" />
+    <testcase name="ConcurrentRemoveTest" status="run" time="0.329" classname="ExtendibleHashTest" />
   </testsuite>
 </testsuites>
