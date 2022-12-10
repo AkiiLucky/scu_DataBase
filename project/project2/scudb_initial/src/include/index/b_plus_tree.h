@@ -89,7 +89,7 @@ private:
     //*****************************************************
 
 
-    void StartNewTree(const KeyType &key, const ValueType &value);
+    bool StartNewTree(const KeyType &key, const ValueType &value);
 
     bool InsertIntoLeaf(const KeyType &key, const ValueType &value,
                       Transaction *transaction = nullptr);
