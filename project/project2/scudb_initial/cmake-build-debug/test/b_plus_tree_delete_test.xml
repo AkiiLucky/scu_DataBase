@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="5" failures="1" disabled="0" errors="0" timestamp="2022-12-07T19:18:35" time="0.63" name="AllTests">
-  <testsuite name="BPlusTreeDeleteTests" tests="5" failures="1" disabled="0" errors="0" time="0.624">
-    <testcase name="DeleteTest1" status="run" time="0.001" classname="BPlusTreeDeleteTests" />
-    <testcase name="DeleteTest2" status="run" time="0" classname="BPlusTreeDeleteTests" />
+<testsuites tests="5" failures="0" disabled="0" errors="0" timestamp="2022-12-11T01:47:20" time="0.812" name="AllTests">
+  <testsuite name="BPlusTreeDeleteTests" tests="5" failures="0" disabled="0" errors="0" time="0.812">
+    <testcase name="DeleteTest1" status="run" time="0.003" classname="BPlusTreeDeleteTests" />
+    <testcase name="DeleteTest2" status="run" time="0.001" classname="BPlusTreeDeleteTests" />
     <testcase name="DeleteBasic" status="run" time="0" classname="BPlusTreeDeleteTests" />
-    <testcase name="DeleteScale" status="run" time="0.002" classname="BPlusTreeDeleteTests" />
-    <testcase name="DeleteRandom" status="run" time="0.621" classname="BPlusTreeDeleteTests">
-      <failure message="/home/sion/work/scu_DataBase/project/project2/scudb_initial/test/index/b_plus_tree_delete_test.cpp:381&#x0A;Value of: tree.Check(true)&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[/home/sion/work/scu_DataBase/project/project2/scudb_initial/test/index/b_plus_tree_delete_test.cpp:381
-Value of: tree.Check(true)
-  Actual: false
-Expected: true]]></failure>
-    </testcase>
+    <testcase name="DeleteScale" status="run" time="0.001" classname="BPlusTreeDeleteTests" />
+    <testcase name="DeleteRandom" status="run" time="0.807" classname="BPlusTreeDeleteTests" />
   </testsuite>
 </testsuites>

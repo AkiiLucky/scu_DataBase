@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="5" failures="0" disabled="0" errors="0" timestamp="2022-12-11T01:47:21" time="0.774" name="AllTests">
+  <testsuite name="BPlusTreeInsertTests" tests="5" failures="0" disabled="0" errors="0" time="0.774">
+    <testcase name="InsertTest1" status="run" time="0.001" classname="BPlusTreeInsertTests" />
+    <testcase name="InsertTest2" status="run" time="0" classname="BPlusTreeInsertTests" />
+    <testcase name="InsertScale" status="run" time="0.035" classname="BPlusTreeInsertTests" />
+    <testcase name="InsertReverse" status="run" time="0.036" classname="BPlusTreeInsertTests" />
+    <testcase name="InsertRandom" status="run" time="0.702" classname="BPlusTreeInsertTests" />
+  </testsuite>
+</testsuites>

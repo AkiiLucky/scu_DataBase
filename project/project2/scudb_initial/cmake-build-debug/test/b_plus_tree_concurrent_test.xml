@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="12" failures="0" disabled="0" errors="0" timestamp="2022-12-11T01:47:18" time="2.205" name="AllTests">
+  <testsuite name="BPlusTreeConcurrentTest" tests="12" failures="0" disabled="0" errors="0" time="2.204">
+    <testcase name="InsertTest1" status="run" time="0.002" classname="BPlusTreeConcurrentTest" />
+    <testcase name="InsertTest2" status="run" time="0.003" classname="BPlusTreeConcurrentTest" />
+    <testcase name="InsertAndGetTest" status="run" time="0.135" classname="BPlusTreeConcurrentTest" />
+    <testcase name="DeleteTest1" status="run" time="0" classname="BPlusTreeConcurrentTest" />
+    <testcase name="DeleteAndGetTest" status="run" time="0" classname="BPlusTreeConcurrentTest" />
+    <testcase name="DeleteTest2" status="run" time="0.001" classname="BPlusTreeConcurrentTest" />
+    <testcase name="DeleteTest3" status="run" time="0.002" classname="BPlusTreeConcurrentTest" />
+    <testcase name="DeleteTest4" status="run" time="0.025" classname="BPlusTreeConcurrentTest" />
+    <testcase name="DeleteTest5" status="run" time="0.066" classname="BPlusTreeConcurrentTest" />
+    <testcase name="MixTest" status="run" time="0.012" classname="BPlusTreeConcurrentTest" />
+    <testcase name="MixTest2" status="run" time="0.13" classname="BPlusTreeConcurrentTest" />
+    <testcase name="MixTest3" status="run" time="1.82" classname="BPlusTreeConcurrentTest" />
+  </testsuite>
+</testsuites>
